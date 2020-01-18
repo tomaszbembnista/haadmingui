@@ -1,0 +1,13 @@
+export * from './basicErrorController.service';
+import { BasicErrorControllerService } from './basicErrorController.service';
+export * from './deviceResource.service';
+import { DeviceResourceService } from './deviceResource.service';
+export * from './pluginResource.service';
+import { PluginResourceService } from './pluginResource.service';
+export * from './processingChainResource.service';
+import { ProcessingChainResourceService } from './processingChainResource.service';
+export * from './signalProcessorResource.service';
+import { SignalProcessorResourceService } from './signalProcessorResource.service';
+export * from './spaceResource.service';
+import { SpaceResourceService } from './spaceResource.service';
+export const APIS = [BasicErrorControllerService, DeviceResourceService, PluginResourceService, ProcessingChainResourceService, SignalProcessorResourceService, SpaceResourceService];

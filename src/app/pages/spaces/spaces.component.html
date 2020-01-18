@@ -1,1 +1,18 @@
-<p>spaces works!</p>
+<mat-card>
+    <mat-card-title>
+        <mat-icon class="hidden-child decent" (click)="back()" color="warn" *ngIf="spaceId > -1">arrow_back
+        </mat-icon>
+        Spaces
+        <mat-icon class="hidden-child decent" (click)="addNew()" color="warn">add_box
+        </mat-icon>
+    </mat-card-title>
+    <mat-card-content>
+        <mat-list>
+            <mat-list-item *ngFor="let space of subspaces" (click)="showSpace(space)">
+                <mat-icon matListIcon>room</mat-icon>
+                <h3 matLine> {{space.name}} </h3>
+
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>
