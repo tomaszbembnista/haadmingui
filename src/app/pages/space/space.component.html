@@ -1,6 +1,9 @@
+<mat-icon class="hidden-child decent" (click)="back()" color="warn" *ngIf="spaceId > -1">arrow_back
+</mat-icon>
 <form #f="ngForm" (ngSubmit)="save()">
     <mat-form-field (change)="f.ngSubmit.emit()" *ngIf="spaceId > -1">
         <input matInput placeholder="Name" [(ngModel)]="space.name" name="spaceName">
     </mat-form-field>
 </form>
-<app-spaces [spaceId]="spaceId" [parentSpaceId]="space.parentId"></app-spaces>
+<app-spaces [spaceId]="spaceId"></app-spaces>
+<app-devices [spaceId]="spaceId"></app-devices>

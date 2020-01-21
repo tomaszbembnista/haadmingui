@@ -18,6 +18,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs/Observable';
 
+import { DeviceDTO } from '../model/deviceDTO';
 import { SpaceDTO } from '../model/spaceDTO';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -94,6 +95,47 @@ export class SpaceResourceService {
 
         return this.httpClient.post<SpaceDTO>(`${this.basePath}/api/spaces`,
             space,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getDevicesBelongingToSpace
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getDevicesBelongingToSpaceUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<DeviceDTO>>;
+    public getDevicesBelongingToSpaceUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<DeviceDTO>>>;
+    public getDevicesBelongingToSpaceUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<DeviceDTO>>>;
+    public getDevicesBelongingToSpaceUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getDevicesBelongingToSpaceUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<DeviceDTO>>(`${this.basePath}/api/spaces/${encodeURIComponent(String(id))}/devices`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

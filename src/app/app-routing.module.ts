@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LandingPageComponent } from './pages/landing-page/landing-page.component';
 import { SpaceComponent } from './pages/space/space.component';
+import { DeviceComponent } from './pages/device/device.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'space/:spaceId',
     component: SpaceComponent
+  },
+  {
+    path: 'device/:deviceId',
+    component: DeviceComponent
   }
 ];
 

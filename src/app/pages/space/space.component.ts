@@ -16,7 +16,7 @@ export class SpaceComponent implements OnInit {
   public spaceId: number = -1;
   public space: SpaceDTO = {};
 
-  constructor(private route: ActivatedRoute, private spaceService: SpaceResourceService) { }
+  constructor(private route: ActivatedRoute, private spaceService: SpaceResourceService, private router: Router) { }
 
   ngOnInit() {
     this.pramsSubscription = this.route.params.subscribe((params: Params) => {
@@ -39,6 +39,10 @@ export class SpaceComponent implements OnInit {
   save() {
     this.spaceService.updateSpaceUsingPUT(this.space)
       .subscribe(result => this.space = result);
+  }
+
+  back() {
+    this.router.navigate(['space', this.space.parentId || -1])
   }
 
 }

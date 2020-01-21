@@ -50,13 +50,17 @@ import {
 } from '@angular/material';
 import { SpaceComponent } from './pages/space/space.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DevicesComponent } from './pages/devices/devices.component';
+import { DeviceComponent } from './pages/device/device.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LandingPageComponent,
     SpacesComponent,
-    SpaceComponent
+    SpaceComponent,
+    DevicesComponent,
+    DeviceComponent
   ],
   imports: [
     BrowserModule,

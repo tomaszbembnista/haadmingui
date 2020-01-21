@@ -1,0 +1,9 @@
+<button mat-icon-button>
+    <mat-icon class="hidden-child decent" (click)="back()" color="accent">arrow_back
+    </mat-icon>
+</button>
+<form #f="ngForm" (ngSubmit)="save()">
+    <mat-form-field (change)="f.ngSubmit.emit()">
+        <input matInput placeholder="Name" [(ngModel)]="device.name" name="deviceName">
+    </mat-form-field>
+</form>

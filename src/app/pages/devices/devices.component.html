@@ -1,14 +1,14 @@
 <mat-card>
     <mat-card-title>
-        Spaces
+        Devices
         <mat-icon class="hidden-child decent" (click)="addNew()" color="warn">add_box
         </mat-icon>
     </mat-card-title>
     <mat-card-content>
         <mat-list>
-            <mat-list-item *ngFor="let space of subspaces" (click)="showSpace(space)">
+            <mat-list-item *ngFor="let device of devices" (click)="showDevice(device)">
                 <mat-icon matListIcon>room</mat-icon>
-                <h3 matLine> {{space.name}} </h3>
+                <h3 matLine> {{device.name}} </h3>
 
             </mat-list-item>
         </mat-list>

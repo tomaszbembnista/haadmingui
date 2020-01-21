@@ -15,9 +15,6 @@ export class SpacesComponent implements OnInit {
   private _spaceId: number = -1;
 
   @Input()
-  public parentSpaceId: number;
-
-  @Input()
   public set spaceId(spaceId: number) {
     this._spaceId = spaceId;
     this.loadData();
@@ -51,8 +48,6 @@ export class SpacesComponent implements OnInit {
     this.router.navigate(['space', space.id]);
   }
 
-  back() {
-    this.router.navigate(['space', this.parentSpaceId || -1])
-  }
+
 
 }
