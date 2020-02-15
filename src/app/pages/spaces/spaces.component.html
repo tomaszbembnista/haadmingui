@@ -1,15 +1,32 @@
-<mat-card>
-    <mat-card-title>
-        Spaces
-        <mat-icon class="hidden-child decent" (click)="addNew()" color="warn">add_box
-        </mat-icon>
-    </mat-card-title>
-    <mat-card-content>
-        <mat-list>
-            <mat-list-item *ngFor="let space of subspaces" (click)="showSpace(space)">
-                <mat-icon matListIcon>room</mat-icon>
-                <h3 matLine> {{space.name}} </h3>
+<mat-card fxLayout="column" fxFlex="100%">
 
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="15px">
+            <mat-icon mat-card-avatar aria-hidden="false" color="primary" *ngIf="spaceId>-1">meeting_room</mat-icon>
+            <mat-icon mat-card-avatar aria-hidden="false" color="primary" *ngIf="spaceId<0">house</mat-icon>
+            <h3>Spaces</h3>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+            <button mat-icon-button>
+                <mat-icon (click)="addNew()" matTooltip="Add new space" color="accent">
+                    add_box
+                </mat-icon>
+            </button>
+        </div>
+
+    </div>
+    <mat-card-content fxLayout="column" *ngIf="subspaces.length>0">
+        <mat-divider></mat-divider>
+
+
+        <mat-list>
+            <mat-list-item *ngFor="let space of subspaces" (click)="showSpace(space)" class="hidden-children">
+                <h3 matLine> {{space.name}} </h3>
+                <button mat-icon-button class="hidden-child decent">
+                    <mat-icon (click)="deleteSpace(space)" matTooltip="Delete" color="warn">
+                        delete_outline
+                    </mat-icon>
+                </button>
             </mat-list-item>
         </mat-list>
     </mat-card-content>

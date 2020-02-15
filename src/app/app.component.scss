@@ -1,0 +1,16 @@
+html,
+body,
+.page {
+  height: 100%; /* needed for proper layout */
+}
+
+body {
+  overflow: hidden;
+  
+}
+
+.outlet{
+  margin: 0px;
+  width: 800px;
+  object-fit: contain;
+}

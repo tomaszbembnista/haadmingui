@@ -1,9 +1,30 @@
-<mat-icon class="hidden-child decent" (click)="back()" color="warn" *ngIf="spaceId > -1">arrow_back
-</mat-icon>
-<form #f="ngForm" (ngSubmit)="save()">
-    <mat-form-field (change)="f.ngSubmit.emit()" *ngIf="spaceId > -1">
-        <input matInput placeholder="Name" [(ngModel)]="space.name" name="spaceName">
-    </mat-form-field>
-</form>
-<app-spaces [spaceId]="spaceId"></app-spaces>
-<app-devices [spaceId]="spaceId"></app-devices>
+<div fxLayout="column" fxFlex="100%" fxLayoutGap="10px">
+
+    <mat-card *ngIf="spaceId > -1">
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="15px">
+                <h3>{{space.name}}</h3>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-around center">
+                <button mat-icon-button>
+                    <mat-icon (click)="back()" color="accent">close
+                    </mat-icon>
+                </button>
+            </div>
+        </div>
+        <mat-divider></mat-divider>
+        <mat-card-content style="margin-top: 10px;">
+            <form #f="ngForm" (ngSubmit)="save()" fxLayout="row" fxLayoutGap="20px"
+                fxLayoutAlign="space-between center">
+                <mat-form-field (change)="f.ngSubmit.emit()" fxFlex>
+                    <input matInput placeholder="Name" [(ngModel)]="space.name" name="spaceName">
+                </mat-form-field>
+                <mat-form-field (change)="f.ngSubmit.emit()" fxFlex>
+                    <input matInput placeholder="Slug" [(ngModel)]="space.slug" name="spaceSlug">
+                </mat-form-field>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    <app-spaces [spaceId]="spaceId"></app-spaces>
+    <app-devices [spaceId]="spaceId" *ngIf="spaceId > -1"></app-devices>
+</div>

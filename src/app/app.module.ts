@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -105,7 +106,8 @@ import { DeviceComponent } from './pages/device/device.component';
     MatToolbarModule,
     MatTooltipModule,
     MatTreeModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    FlexLayoutModule
   ],
   providers: [{ provide: BASE_PATH, useValue: environment.API_BASE_PATH }],
   bootstrap: [AppComponent]

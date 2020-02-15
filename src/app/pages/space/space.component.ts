@@ -7,7 +7,8 @@ import { SpaceResourceService, SpaceDTO } from 'src/app/srvapi';
 @Component({
   selector: 'app-space',
   templateUrl: './space.component.html',
-  styleUrls: ['./space.component.scss']
+  styleUrls: ['./space.component.scss'],
+  host: { class: 'fullOutlet' }
 })
 export class SpaceComponent implements OnInit {
 

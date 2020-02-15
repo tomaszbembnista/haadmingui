@@ -1,1 +1,23 @@
-<router-outlet></router-outlet>
+<div class="page" fxLayout="column" fxLayoutGap="15px">
+
+
+    <mat-toolbar fxLayout fxFlex="0 0 55px" color="primary" fxLayoutGap="15px" fxLayoutAlign="end center">
+        <span>Home Automation System</span>
+    </mat-toolbar>
+
+    <div fxFlex="1 1 calc(100% - 140px)" class="outlet" fxFlexAlign="center">
+        <div fxLayout="column">
+            <div fxFlex="1 1 100%" fxLayout="row">
+                <div fxFlex="100%" fxLayout="column">
+                    <router-outlet></router-outlet>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <mat-toolbar fxFlex="0 0 55px" color="primary">
+        <span>v {{version}}</span>
+    </mat-toolbar>
+
+</div>

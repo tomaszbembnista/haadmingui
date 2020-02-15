@@ -48,6 +48,12 @@ export class SpacesComponent implements OnInit {
     this.router.navigate(['space', space.id]);
   }
 
+  deleteSpace(space: SpaceDTO) {
+    //this.spaceResource.
+    var index = this.subspaces.findIndex(elem => elem.id == space.id);
+    this.subspaces.splice(index, 1);
+  }
+
 
 
 }
