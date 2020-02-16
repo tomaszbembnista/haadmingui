@@ -14,10 +14,13 @@
     <mat-card-content fxLayout="column" *ngIf="devices.length>0">
         <mat-divider></mat-divider>
         <mat-list>
-            <mat-list-item *ngFor="let device of devices" (click)="showDevice(device)">
-                <mat-icon matListIcon>room</mat-icon>
+            <mat-list-item *ngFor="let device of devices" (click)="showDevice(device)" class="hidden-children">
                 <h3 matLine> {{device.name}} </h3>
-
+                <button mat-icon-button class="hidden-child decent">
+                    <mat-icon (click)="deleteDevice(device, $event)" matTooltip="Delete" color="warn">
+                        delete_outline
+                    </mat-icon>
+                </button>
             </mat-list-item>
         </mat-list>
     </mat-card-content>

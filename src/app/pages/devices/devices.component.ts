@@ -47,6 +47,14 @@ export class DevicesComponent implements OnInit {
     this.router.navigate(['device', device.id]);
   }
 
+  deleteDevice(device: DeviceDTO, event) {
+    event.stopPropagation();
+    this.deviceResource.deleteDeviceUsingDELETE(device.id).subscribe(result => {
+      var index = this.devices.findIndex(elem => elem.id == device.id);
+      this.devices.splice(index, 1);
+    });
+  }
+
 
 
 
