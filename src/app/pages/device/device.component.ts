@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { DeviceResourceService, DeviceDTO } from 'src/app/srvapi';
+import { DeviceResourceService, DeviceDTO, ProcessingChainDTO } from 'src/app/srvapi';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -13,6 +13,7 @@ export class DeviceComponent implements OnInit {
   private pramsSubscription: Subscription;
   public deviceId: number = -1;
   public device: DeviceDTO = {};
+  public outputProcessors: ProcessingChainDTO[];
 
 
   constructor(private route: ActivatedRoute, private deviceService: DeviceResourceService, private router: Router) { }
@@ -31,6 +32,8 @@ export class DeviceComponent implements OnInit {
   loadData() {
     this.deviceService.getDeviceUsingGET(this.deviceId)
       .subscribe(result => this.device = result);
+    this.deviceService.getOutputProcessingChainsUsingGET(this.deviceId)
+      .subscribe(result => this.outputProcessors = result);
   }
 
   save() {

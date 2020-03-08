@@ -24,4 +24,17 @@
             </form>
         </mat-card-content>
     </mat-card>
+
+    <mat-card>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            Output processors
+        </div>
+        <mat-divider></mat-divider>
+        <mat-card-content style="margin-top: 10px;">
+            <app-processing-chain *ngFor="let processor of outputProcessors" [rootId]="processor.id"
+                [spaceId]="device.spaceId">
+            </app-processing-chain>
+        </mat-card-content>
+    </mat-card>
+
 </div>

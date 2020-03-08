@@ -104,6 +104,88 @@ export class ProcessingChainResourceService {
     }
 
     /**
+     * getProcessingChainSteps
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getProcessingChainStepsUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ProcessingChainDTO>>;
+    public getProcessingChainStepsUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProcessingChainDTO>>>;
+    public getProcessingChainStepsUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProcessingChainDTO>>>;
+    public getProcessingChainStepsUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getProcessingChainStepsUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ProcessingChainDTO>>(`${this.basePath}/api/processing-chains/${encodeURIComponent(String(id))}/steps`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getProcessingChain
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getProcessingChainUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<ProcessingChainDTO>;
+    public getProcessingChainUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProcessingChainDTO>>;
+    public getProcessingChainUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProcessingChainDTO>>;
+    public getProcessingChainUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getProcessingChainUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<ProcessingChainDTO>(`${this.basePath}/api/processing-chains/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
      * getProcessingChains
      * 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
@@ -130,47 +212,6 @@ export class ProcessingChainResourceService {
         ];
 
         return this.httpClient.get<Array<ProcessingChainDTO>>(`${this.basePath}/api/processing-chains`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * getSignalProcessor
-     * 
-     * @param id id
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getSignalProcessorUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<ProcessingChainDTO>;
-    public getSignalProcessorUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<ProcessingChainDTO>>;
-    public getSignalProcessorUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<ProcessingChainDTO>>;
-    public getSignalProcessorUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getSignalProcessorUsingGET.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            '*/*'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<ProcessingChainDTO>(`${this.basePath}/api/processing-chains/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

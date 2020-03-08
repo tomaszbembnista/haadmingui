@@ -1,0 +1,6 @@
+<mat-card fxLayoutGap="20px" fxLayout="column">
+    <app-processing-chain-element [signalProcessors]="signalProcessors" [devicesInSpace]="devicesInSpace"
+        [processingChainElement]="step" (nextStepAdded)="onStepAdded()" (nextStepDeleted)="onStepDeleted($event)"
+        *ngFor="let step of allSteps">
+    </app-processing-chain-element>
+</mat-card>

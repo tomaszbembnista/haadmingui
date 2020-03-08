@@ -1,0 +1,36 @@
+<div fxLayout="row" fxFlex="100%" fxLayoutGap="10px" fxLayoutAlign="space-around center">
+
+    <mat-form-field fxFlex="40%">
+        <mat-label>Signal processor</mat-label>
+        <mat-select [(ngModel)]="processingChainElement.signalProcessorId"
+            (selectionChange)="updateProcessingChainElement()">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let signalProcessor of signalProcessors" [value]="signalProcessor.id">
+                {{signalProcessor.name}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-icon>double_arrow</mat-icon>
+    <mat-form-field fxFlex="40%">
+        <mat-label>Device</mat-label>
+        <mat-select [(ngModel)]="processingChainElement.outputDeviceId"
+            (selectionChange)="updateProcessingChainElement()">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let deviceInSpace of devicesInSpace" [value]="deviceInSpace.device.id">
+                <div [style.font-weight]="deviceInSpace.isThatSpace ? 'bolder' :  'normal'">
+                    {{deviceInSpace.device.name}}
+                    in {{deviceInSpace.space.name}}</div>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div>
+        <button mat-icon-button>
+            <mat-icon (click)="addNextStep()" color="accent">add
+            </mat-icon>
+        </button>
+        <button mat-icon-button>
+            <mat-icon (click)="deleteStep()" color="accent">delete
+            </mat-icon>
+        </button>
+    </div>
+</div>

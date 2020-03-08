@@ -53,6 +53,8 @@ import { SpaceComponent } from './pages/space/space.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DevicesComponent } from './pages/devices/devices.component';
 import { DeviceComponent } from './pages/device/device.component';
+import { ProcessingChainComponent } from './pages/processing-chain/processing-chain.component';
+import { ProcessingChainElementComponent } from './pages/processing-chain/processing-chain-element.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import { DeviceComponent } from './pages/device/device.component';
     SpacesComponent,
     SpaceComponent,
     DevicesComponent,
-    DeviceComponent
+    DeviceComponent,
+    ProcessingChainComponent,
+    ProcessingChainElementComponent
   ],
   imports: [
     BrowserModule,

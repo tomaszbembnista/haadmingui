@@ -19,6 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs/Observable';
 
 import { DeviceDTO } from '../model/deviceDTO';
+import { ProcessingChainDTO } from '../model/processingChainDTO';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -212,6 +213,47 @@ export class DeviceResourceService {
         ];
 
         return this.httpClient.get<Array<DeviceDTO>>(`${this.basePath}/api/devices`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * getOutputProcessingChains
+     * 
+     * @param id id
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getOutputProcessingChainsUsingGET(id: number, observe?: 'body', reportProgress?: boolean): Observable<Array<ProcessingChainDTO>>;
+    public getOutputProcessingChainsUsingGET(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<ProcessingChainDTO>>>;
+    public getOutputProcessingChainsUsingGET(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<ProcessingChainDTO>>>;
+    public getOutputProcessingChainsUsingGET(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling getOutputProcessingChainsUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<ProcessingChainDTO>>(`${this.basePath}/api/devices/${encodeURIComponent(String(id))}/output-processing-chains`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
