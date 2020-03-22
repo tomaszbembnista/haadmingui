@@ -26,14 +26,24 @@
     </mat-card>
 
     <mat-card>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            Output processors
+        <div fxLayout="row">
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                Device output processing chains
+            </div>
+            <button mat-icon-button>
+                <mat-icon (click)="addNewProcessor()" color="accent">add
+                </mat-icon>
+            </button>
         </div>
         <mat-divider></mat-divider>
         <mat-card-content style="margin-top: 10px;">
-            <app-processing-chain *ngFor="let processor of outputProcessors" [rootId]="processor.id"
-                [spaceId]="device.spaceId">
-            </app-processing-chain>
+            <mat-tab-group>
+                <mat-tab *ngFor="let processor of outputProcessors" label="Processing chain">
+                    <app-processing-chain [rootId]="processor.id" [spaceId]="device.spaceId"
+                        (lastStepDeleted)="onProcessorChainDeleted($event)">
+                    </app-processing-chain>
+                </mat-tab>
+            </mat-tab-group>
         </mat-card-content>
     </mat-card>
 

@@ -45,7 +45,9 @@ export class ProcessingChainElementComponent implements OnInit {
   }
 
   deleteStep() {
-    //this.processingChainService.s
+    this.processingChainService.deleteProcessingChainStepUsingDELETE(this.processingChainElement.id).subscribe(
+      () => this.nextStepDeleted.emit(this.processingChainElement)
+    );
   }
 
 }

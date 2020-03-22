@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
-import { DeviceResourceService, DeviceDTO, ProcessingChainDTO } from 'src/app/srvapi';
+import { DeviceResourceService, DeviceDTO, ProcessingChainDTO, ProcessingChainResourceService } from 'src/app/srvapi';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,7 +16,8 @@ export class DeviceComponent implements OnInit {
   public outputProcessors: ProcessingChainDTO[];
 
 
-  constructor(private route: ActivatedRoute, private deviceService: DeviceResourceService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private deviceService: DeviceResourceService, private router: Router,
+    private processingChainResource: ProcessingChainResourceService) { }
 
   ngOnInit() {
     this.pramsSubscription = this.route.params.subscribe((params: Params) => {
@@ -42,6 +43,18 @@ export class DeviceComponent implements OnInit {
 
   back() {
     this.router.navigate(['space', this.device.spaceId || -1])
+  }
+
+  addNewProcessor() {
+    this.processingChainResource.createProcessingChainUsingPOST({ inputDeviceId: this.device.id })
+      .toPromise()
+      .then(() => this.deviceService.getOutputProcessingChainsUsingGET(this.deviceId).toPromise())
+      .then(result => this.outputProcessors = result);
+  }
+
+  onProcessorChainDeleted(deleted: ProcessingChainDTO) {
+    var deletedIndex = this.outputProcessors.findIndex(elem => elem.id == deleted.id);
+    this.outputProcessors.splice(deletedIndex, 1);
   }
 
 }

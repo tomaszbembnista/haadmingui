@@ -8,7 +8,7 @@ import { DeviceComponent } from './pages/device/device.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: "/space/-1",
+    redirectTo: "landing-page",
     pathMatch: 'full'
   },
   {
@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'device/:deviceId',
     component: DeviceComponent
+  },
+  {
+    path: 'landing-page',
+    component: LandingPageComponent
   }
 ];
 

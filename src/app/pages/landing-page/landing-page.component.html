@@ -1,1 +1,28 @@
-<app-spaces [spaceId]="-1"></app-spaces>
+<!--app-spaces [spaceId]="-1"></app-spaces-->
+
+<div class="container">
+    <mat-card routerLink="/space/-1">
+        <mat-card-header>
+            <mat-card-title>Spaces and devices</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <img mat-card-image src="assets/homeplan.PNG">
+        <mat-card-content>
+            <p>
+                Here you can define spaces and devices belongig to your area.
+            </p>
+        </mat-card-content>
+    </mat-card>
+    <mat-card color="accent">
+        <mat-card-header>
+            <mat-card-title>Processors</mat-card-title>
+        </mat-card-header>
+        <mat-divider></mat-divider>
+        <img mat-card-image src="assets/processor.PNG">
+        <mat-card-content>
+            <p>
+                Here you can define processors handling your data.
+            </p>
+        </mat-card-content>
+    </mat-card>
+</div>

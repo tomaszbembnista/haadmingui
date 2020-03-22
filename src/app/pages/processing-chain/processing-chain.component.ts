@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { PluginDTO, PluginResourceService, ProcessingChainDTO, ProcessingChainResourceService, SignalProcessorResourceService, SignalProcessorDTO, DeviceResourceService, SpaceResourceService, DeviceDTO, SpaceDTO } from 'src/app/srvapi';
 
 export interface DeviceInSpace {
@@ -22,10 +22,13 @@ export class ProcessingChainComponent implements OnInit {
   public rootId: number;
   @Input()
   public spaceId: number;
+  @Output()
+  public lastStepDeleted = new EventEmitter<ProcessingChainDTO>();
   public allSteps: ProcessingChainDTO[] = [];
   public devicesInSpace: DeviceInSpace[] = [];
   public plugins: PluginDTO[];
   public signalProcessors: SignalProcessorDTO[];
+
 
   ngOnInit() {
     this.signalProcessorService.getSignalProcessorsUsingGET().subscribe(signalProcessors => this.signalProcessors = signalProcessors);
@@ -43,8 +46,11 @@ export class ProcessingChainComponent implements OnInit {
   }
 
   public onStepDeleted(deletedStep: ProcessingChainDTO) {
-    var indexOfDeletedItem = this.allSteps.findIndex(elem => elem.id = deletedStep.id);
-    this.allSteps = this.allSteps.splice(indexOfDeletedItem, 1);
+    var indexOfDeletedItem = this.allSteps.findIndex(elem => elem.id == deletedStep.id);
+    this.allSteps.splice(indexOfDeletedItem, 1);
+    if (this.allSteps.length == 0) {
+      this.lastStepDeleted.emit(deletedStep);
+    }
   }
 
   private getSteps() {
