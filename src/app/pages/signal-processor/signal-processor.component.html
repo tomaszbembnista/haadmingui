@@ -11,11 +11,11 @@
         </div>
     </div>
     <mat-divider></mat-divider>
-    <mat-card-content style="margin-top: 10px;">
+    <mat-card-content style="margin-top: 10px;" fxLayout="row" fxLayoutGap="5px">
         <mat-form-field (change)="updateSignalProcessor()" fxFlex="40%">
             <input matInput placeholder="Name" [(ngModel)]="signalProcessor.name" name="procesorName">
         </mat-form-field>
-        <mat-form-field (change)="f.ngSubmit.emit()" fxFlex>
+        <mat-form-field fxFlex>
             <mat-label>type</mat-label>
             <mat-select [(ngModel)]="pluginClass" name="procesorType">
                 <mat-option *ngFor="let plugin of plugins" [value]="plugin.className">
@@ -24,5 +24,25 @@
             </mat-select>
         </mat-form-field>
     </mat-card-content>
-    {{signalProcessor.configuration}}
+    <div style="border-style: solid; border-width: 1px; border-color: gainsboro;">
+        <mat-tab-group>
+            <mat-tab label="Configuration">
+                <div fxLayout="column" fxLayoutGap="5px">
+                    <mat-toolbar fxLayoutAlign="end center">
+                        <button mat-icon-button>
+                            <mat-icon (click)="updateSignalProcessor()" color="accent">save</mat-icon>
+                        </button>
+                    </mat-toolbar>
+                    <ngx-monaco-editor [options]="editorOptions" [(ngModel)]="signalProcessor.configuration">
+                    </ngx-monaco-editor>
+                </div>
+            </mat-tab>
+            <mat-tab label="Documentation" fxLayout="column" fxLayoutGap="5px">
+                <div style="margin:5px">
+                    <markdown [data]="markdown"></markdown>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+
+    </div>
 </mat-card>

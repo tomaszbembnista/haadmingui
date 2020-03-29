@@ -12,6 +12,8 @@ export class SignalProcessorComponent implements OnInit {
   public signalProcessor: SignalProcessorDTO = {};
   public plugin: PluginDTO = {};
   public plugins: PluginDTO[] = [];
+  editorOptions = { theme: 'vs', language: 'json' };
+  public markdown = "";
 
   get pluginClass() {
     return this.signalProcessor.className;
@@ -19,7 +21,7 @@ export class SignalProcessorComponent implements OnInit {
 
   set pluginClass(value: string) {
     this.signalProcessor.className = value;
-    this.pluginsService.getPluginUsingGET(value).subscribe(result => this.plugin = result);
+    this.pluginsService.getPluginUsingGET(value).subscribe(result => { this.plugin = result, this.markdown = this.plugin.documentation || "" });
     this.updateSignalProcessor();
   }
 
@@ -31,7 +33,10 @@ export class SignalProcessorComponent implements OnInit {
     this.pluginsService.getPluginsUsingGET(true).subscribe(result => {
       this.plugins = result;
     });
-    this.signalProcessorService.getSignalProcessorUsingGET(processorId).subscribe(result => { this.signalProcessor = result });
+    this.signalProcessorService.getSignalProcessorUsingGET(processorId)
+      .toPromise().then(result => { this.signalProcessor = result })
+      .then(() => this.pluginsService.getPluginUsingGET(this.signalProcessor.className).toPromise())
+      .then((result) => { this.plugin = result, this.markdown = this.plugin.documentation || "" });
   }
 
   updateSignalProcessor() {

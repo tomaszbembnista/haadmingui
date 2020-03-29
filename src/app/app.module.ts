@@ -59,6 +59,7 @@ import { ProcessingChainComponent } from './pages/processing-chain/processing-ch
 import { ProcessingChainElementComponent } from './pages/processing-chain/processing-chain-element.component';
 import { SignalProcessorsComponent } from './pages/signal-processors/signal-processors.component';
 import { SignalProcessorComponent } from './pages/signal-processor/signal-processor.component';
+import { MonacoEditorModule } from 'ngx-monaco-editor';
 
 @NgModule({
   declarations: [
@@ -118,7 +119,8 @@ import { SignalProcessorComponent } from './pages/signal-processor/signal-proces
     MatTreeModule,
     MatFormFieldModule,
     FlexLayoutModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    MonacoEditorModule.forRoot()
   ],
   providers: [{ provide: BASE_PATH, useValue: environment.API_BASE_PATH }],
   bootstrap: [AppComponent]
