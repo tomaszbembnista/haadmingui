@@ -13,4 +13,6 @@
 
 export interface PluginDTO { 
     className?: string;
+    displayName?: string;
+    documentation?: string;
 }

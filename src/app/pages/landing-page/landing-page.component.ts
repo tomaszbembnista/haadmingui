@@ -12,4 +12,7 @@ export class LandingPageComponent implements OnInit {
   ngOnInit() {
   }
 
+  public markdown = "# Hallo\nJak Ci idzie";
+
+
 }

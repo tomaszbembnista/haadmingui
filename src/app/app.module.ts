@@ -11,6 +11,8 @@ import { BASE_PATH, ApiModule } from './srvapi';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
+import { MarkdownModule } from 'ngx-markdown';
+
 import {
   MatAutocompleteModule,
   MatBadgeModule,
@@ -55,6 +57,8 @@ import { DevicesComponent } from './pages/devices/devices.component';
 import { DeviceComponent } from './pages/device/device.component';
 import { ProcessingChainComponent } from './pages/processing-chain/processing-chain.component';
 import { ProcessingChainElementComponent } from './pages/processing-chain/processing-chain-element.component';
+import { SignalProcessorsComponent } from './pages/signal-processors/signal-processors.component';
+import { SignalProcessorComponent } from './pages/signal-processor/signal-processor.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,9 @@ import { ProcessingChainElementComponent } from './pages/processing-chain/proces
     DevicesComponent,
     DeviceComponent,
     ProcessingChainComponent,
-    ProcessingChainElementComponent
+    ProcessingChainElementComponent,
+    SignalProcessorsComponent,
+    SignalProcessorComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +117,8 @@ import { ProcessingChainElementComponent } from './pages/processing-chain/proces
     MatTooltipModule,
     MatTreeModule,
     MatFormFieldModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MarkdownModule.forRoot()
   ],
   providers: [{ provide: BASE_PATH, useValue: environment.API_BASE_PATH }],
   bootstrap: [AppComponent]

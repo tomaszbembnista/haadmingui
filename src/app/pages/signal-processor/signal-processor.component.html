@@ -1,0 +1,28 @@
+<mat-card>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="15px">
+            <h3>{{signalProcessor.name}}</h3>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center">
+            <button mat-icon-button>
+                <mat-icon (click)="back()" color="accent">close
+                </mat-icon>
+            </button>
+        </div>
+    </div>
+    <mat-divider></mat-divider>
+    <mat-card-content style="margin-top: 10px;">
+        <mat-form-field (change)="updateSignalProcessor()" fxFlex="40%">
+            <input matInput placeholder="Name" [(ngModel)]="signalProcessor.name" name="procesorName">
+        </mat-form-field>
+        <mat-form-field (change)="f.ngSubmit.emit()" fxFlex>
+            <mat-label>type</mat-label>
+            <mat-select [(ngModel)]="pluginClass" name="procesorType">
+                <mat-option *ngFor="let plugin of plugins" [value]="plugin.className">
+                    {{plugin.displayName||plugin.className}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </mat-card-content>
+    {{signalProcessor.configuration}}
+</mat-card>
