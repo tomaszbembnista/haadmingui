@@ -60,6 +60,25 @@ export class SignalProcessorsComponent implements OnInit {
     return plugins.find(elem => elem.className == className);
   }
 
+  addNew() {
+    var newOne: SignalProcessorDTO = {};
+    newOne.name = "new";
+    newOne.className = "";
+    this.signalProcessorService.createSignalProcessorUsingPOST(newOne)
+      .toPromise().then(result => this.router.navigate(['processor', result.id]));
+  }
+
+  delete(toDelete: SignalProcessorDTO, event: any) {
+    event.stopPropagation();
+    //TODO: show confirmation popup
+    this.signalProcessorService.deleteSignalProcessorUsingDELETE(toDelete.id).subscribe(
+      () => {
+        var index = this.processorsWithPlugins.findIndex(item => item.processor.id == toDelete.id);
+        this.processorsWithPlugins.splice(index, 1);
+      }
+    );
+  }
+
 
 
 

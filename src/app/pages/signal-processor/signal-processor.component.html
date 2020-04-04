@@ -4,10 +4,10 @@
             <h3>{{signalProcessor.name}}</h3>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-around center">
-            <button mat-icon-button>
-                <mat-icon (click)="back()" color="accent">close
+            <a mat-icon-button [routerLink]="['/processors']">
+                <mat-icon color="accent">close
                 </mat-icon>
-            </button>
+            </a>
         </div>
     </div>
     <mat-divider></mat-divider>

@@ -24,7 +24,7 @@
                 (click)="showProcessor(processorWithPlugin)" class="hidden-children">
                 <h3 matLine>{{processorWithPlugin.displayName()}}</h3>
                 <button mat-icon-button class="hidden-child decent">
-                    <mat-icon (click)="deleteProcessor(processorWithPlugin, $event)" matTooltip="Delete" color="warn">
+                    <mat-icon (click)="delete(processorWithPlugin.processor, $event)" matTooltip="Delete" color="warn">
                         delete_outline
                     </mat-icon>
                 </button>
