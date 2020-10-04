@@ -42,7 +42,7 @@ export class SignalProcessorsComponent implements OnInit {
   ngOnInit() {
     forkJoin(
       this.signalProcessorService.getSignalProcessorsUsingGET(),
-      this.pluginsService.getPluginsUsingGET(true)
+      this.pluginsService.getPluginsUsingGET()
     ).subscribe(([signalProcessors, plugins]) => {
       this.joinProcessorsWithPlugins(signalProcessors, plugins);
     });

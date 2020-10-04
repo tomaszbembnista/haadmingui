@@ -7,4 +7,5 @@ export * from './processorOperationArgumentDesc';
 export * from './processorOperationDesc';
 export * from './signalProcessorDTO';
 export * from './spaceDTO';
+export * from './stringWrapper';
 export * from './view';

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SignalProcessorResourceService, PluginResourceService, SignalProcessorDTO, PluginDTO } from 'src/app/srvapi';
 import { ActivatedRoute } from '@angular/router';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-signal-processor',
@@ -21,7 +22,9 @@ export class SignalProcessorComponent implements OnInit {
 
   set pluginClass(value: string) {
     this.signalProcessor.className = value;
-    this.pluginsService.getPluginUsingGET(value).subscribe(result => { this.plugin = result, this.markdown = this.plugin.documentation || "" });
+    this.plugin = this.findPluginDto(value);
+    this.pluginsService.getPluginDocumentationUsingGET(this.signalProcessor.className)
+      .subscribe(result => this.markdown = result.content || "");
     this.updateSignalProcessor();
   }
 
@@ -30,17 +33,27 @@ export class SignalProcessorComponent implements OnInit {
 
   ngOnInit() {
     let processorId = +this.route.snapshot.params["processorId"];
-    this.pluginsService.getPluginsUsingGET(true).subscribe(result => {
-      this.plugins = result;
-    });
-    this.signalProcessorService.getSignalProcessorUsingGET(processorId)
-      .toPromise().then(result => { this.signalProcessor = result })
-      .then(() => this.pluginsService.getPluginUsingGET(this.signalProcessor.className).toPromise())
-      .then((result) => { this.plugin = result, this.markdown = this.plugin.documentation || "" });
+
+    var getPlugins = this.pluginsService.getPluginsUsingGET();
+    var getSignalProcessor = this.signalProcessorService.getSignalProcessorUsingGET(processorId);
+
+    forkJoin([getPlugins, getSignalProcessor]).toPromise()
+      .then(([plugins, signalProcessor]) => {
+        this.plugins = plugins;
+        this.signalProcessor = signalProcessor;
+        this.plugin = this.findPluginDto(this.signalProcessor.className);
+      })
+      .then(() => this.pluginsService.getPluginDocumentationUsingGET(this.signalProcessor.className).toPromise())
+      .then(result => this.markdown = result.content || "");
+
   }
 
   updateSignalProcessor() {
     this.signalProcessorService.updateSignalProcessorUsingPUT(this.signalProcessor).subscribe();
+  }
+
+  private findPluginDto(className: String): PluginDTO {
+    return this.plugins.find(elem => elem.className == className);
   }
 
 }

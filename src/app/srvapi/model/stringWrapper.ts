@@ -11,7 +11,6 @@
  */
 
 
-export interface PluginDTO { 
-    className?: string;
-    displayName?: string;
+export interface StringWrapper { 
+    content?: string;
 }

@@ -19,6 +19,7 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 import { Observable }                                        from 'rxjs/Observable';
 
 import { PluginDTO } from '../model/pluginDTO';
+import { StringWrapper } from '../model/stringWrapper';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -55,6 +56,47 @@ export class PluginResourceService {
         return false;
     }
 
+
+    /**
+     * getPluginDocumentation
+     * 
+     * @param className className
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getPluginDocumentationUsingGET(className: string, observe?: 'body', reportProgress?: boolean): Observable<StringWrapper>;
+    public getPluginDocumentationUsingGET(className: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<StringWrapper>>;
+    public getPluginDocumentationUsingGET(className: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<StringWrapper>>;
+    public getPluginDocumentationUsingGET(className: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (className === null || className === undefined) {
+            throw new Error('Required parameter className was null or undefined when calling getPluginDocumentationUsingGET.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            '*/*'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<StringWrapper>(`${this.basePath}/api/plugins/${encodeURIComponent(String(className))}/documentation`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
 
     /**
      * getPlugin
@@ -100,20 +142,13 @@ export class PluginResourceService {
     /**
      * getPlugins
      * 
-     * @param withoutDocumentation withoutDocumentation
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getPluginsUsingGET(withoutDocumentation?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<PluginDTO>>;
-    public getPluginsUsingGET(withoutDocumentation?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PluginDTO>>>;
-    public getPluginsUsingGET(withoutDocumentation?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PluginDTO>>>;
-    public getPluginsUsingGET(withoutDocumentation?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (withoutDocumentation !== undefined && withoutDocumentation !== null) {
-            queryParameters = queryParameters.set('withoutDocumentation', <any>withoutDocumentation);
-        }
+    public getPluginsUsingGET(observe?: 'body', reportProgress?: boolean): Observable<Array<PluginDTO>>;
+    public getPluginsUsingGET(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<PluginDTO>>>;
+    public getPluginsUsingGET(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<PluginDTO>>>;
+    public getPluginsUsingGET(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -132,7 +167,6 @@ export class PluginResourceService {
 
         return this.httpClient.get<Array<PluginDTO>>(`${this.basePath}/api/plugins`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
