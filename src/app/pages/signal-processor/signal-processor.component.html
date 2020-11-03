@@ -1,14 +1,16 @@
 <mat-card>
     <div fxLayout="row" fxLayoutAlign="space-between center">
-        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="15px">
-            <h3>{{signalProcessor.name}}</h3>
-        </div>
-        <div fxLayout="row" fxLayoutAlign="space-around center">
-            <a mat-icon-button [routerLink]="['/processors']">
-                <mat-icon color="accent">close
-                </mat-icon>
-            </a>
-        </div>
+        <h3>{{signalProcessor.name}}</h3>
+        <mat-select [(ngModel)]="signalProcessor.spaceId" name="procesorType"
+            (selectionChange)="updateSignalProcessor()" fxFlex="40%">
+            <mat-option *ngFor="let space of spaces" [value]="space.id">
+                {{space.name}}
+            </mat-option>
+        </mat-select>
+        <a mat-icon-button [routerLink]="['/processors']">
+            <mat-icon color="accent">close
+            </mat-icon>
+        </a>
     </div>
     <mat-divider></mat-divider>
     <mat-card-content style="margin-top: 10px;" fxLayout="row" fxLayoutGap="5px">

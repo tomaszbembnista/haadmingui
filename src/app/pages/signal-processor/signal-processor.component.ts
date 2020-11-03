@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SignalProcessorResourceService, PluginResourceService, SignalProcessorDTO, PluginDTO } from 'src/app/srvapi';
+import { SignalProcessorResourceService, PluginResourceService, SignalProcessorDTO, PluginDTO, SpaceResourceService, SpaceDTO } from 'src/app/srvapi';
 import { ActivatedRoute } from '@angular/router';
 import { forkJoin } from 'rxjs';
 
@@ -13,6 +13,7 @@ export class SignalProcessorComponent implements OnInit {
   public signalProcessor: SignalProcessorDTO = {};
   public plugin: PluginDTO = {};
   public plugins: PluginDTO[] = [];
+  public spaces: SpaceDTO[] = [];
   editorOptions = { theme: 'vs', language: 'json' };
   public markdown = "";
 
@@ -29,13 +30,15 @@ export class SignalProcessorComponent implements OnInit {
   }
 
   constructor(private signalProcessorService: SignalProcessorResourceService,
-    private pluginsService: PluginResourceService, private route: ActivatedRoute) { }
+    private pluginsService: PluginResourceService, private route: ActivatedRoute,
+    private spaceService: SpaceResourceService) { }
 
   ngOnInit() {
     let processorId = +this.route.snapshot.params["processorId"];
 
     var getPlugins = this.pluginsService.getPluginsUsingGET();
     var getSignalProcessor = this.signalProcessorService.getSignalProcessorUsingGET(processorId);
+    this.spaceService.getSpacesUsingGET().subscribe(result => this.spaces = result);
 
     forkJoin([getPlugins, getSignalProcessor]).toPromise()
       .then(([plugins, signalProcessor]) => {

@@ -16,6 +16,7 @@ export interface SignalProcessorDTO {
     configuration?: string;
     id?: number;
     name?: string;
+    spaceId?: number;
     state?: string;
     status?: string;
 }
